@@ -11,7 +11,7 @@ const app = express();
 // Parse the body
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(adminRoutes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 // 404 Page
