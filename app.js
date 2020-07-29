@@ -13,6 +13,9 @@ const app = express();
 // Parse the body
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Serve file like css statically
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
