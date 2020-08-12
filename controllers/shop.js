@@ -22,14 +22,21 @@ exports.getIndex = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
   res.render('shop/cart', {
-    path: 'path',
+    path: '/cart',
     docTitle: 'Your Cart',
   });
 };
 
 exports.getCheckout = (req, res, next) => {
   res.render('shop/checkout', {
-    path: 'path',
+    path: '/checkout',
     docTitle: 'Checkout',
+  });
+};
+
+exports.getOrders = (req, res, next) => {
+  res.render('shop/orders', {
+    path: '/orders',
+    docTitle: 'Orders',
   });
 };
