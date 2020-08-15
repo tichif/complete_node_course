@@ -1,16 +1,1 @@
-[
-  {
-    "id": "3245",
-    "title": "Post Five",
-    "imageUrl": "https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612",
-    "description": "Lorem ipsum dolor inte ",
-    "price": 3
-  },
-  {
-    "title": "Laptop",
-    "imageUrl": "https://www.notebookcheck.net/uploads/tx_nbc2/MicrosoftSurfaceLaptop3-15__1__02.JPG",
-    "description": "Amazing laptop !!!",
-    "price": 100.99,
-    "id": "0.5486785311874864"
-  }
-]
+[{"id":"3245","title":"Post Five","imageUrl":"https://media.gettyimages.com/photos/single-red-book-on-a-white-surface-picture-id173015527?s=612x612","description":"  Lorem ipsum dolor inte   ","price":"100"},{"id":"0.959423135431337","title":"MacBook Pro","imageUrl":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp13touch-space-select-202005?wid=892&hei=820&&qlt=80&.v=1587460552755","description":" Amazing Laptop ","price":"999"}]
