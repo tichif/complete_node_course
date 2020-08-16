@@ -51,4 +51,15 @@ module.exports = class Cart {
       fs.writeFile(p, JSON.stringify(updatedCart), (err) => console.log(err));
     });
   }
+
+  static getCart(cb) {
+    fs.readFile(p, (err, data) => {
+      const cart = JSON.parse(data);
+      if (err) {
+        cb(null);
+      } else {
+        cb(cart);
+      }
+    });
+  }
 };
