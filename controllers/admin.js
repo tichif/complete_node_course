@@ -45,18 +45,24 @@ exports.postEditProduct = (req, res, next) => {
     updateDescription,
     updatePrice
   );
-  updatedProduct.save();
-  res.redirect('/admin/products');
+  updatedProduct
+    .save()
+    .then((result) => {
+      res.redirect('/admin/products');
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll((products) => {
-    res.render('admin/products', {
-      products: products,
-      docTitle: 'Admin Products',
-      path: '/admin/products',
-    });
-  });
+  Product.fetchAll()
+    .then(([rows, filedData]) => {
+      res.render('admin/products', {
+        products: rows,
+        docTitle: 'Admin Products',
+        path: '/admin/products',
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.postDeleteProduct = (req, res, next) => {
