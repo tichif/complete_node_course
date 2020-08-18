@@ -21,6 +21,15 @@ app.set('views', 'views');
 // Parse the body
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use((req, res, next) => {
+  User.findByPk(1)
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.log(err));
+});
+
 // Serve file like css statically
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -40,9 +49,23 @@ User.hasMany(Product);
 
 // Sync all models
 sequelize
-  .sync({ force: true })
+  // .sync({ force: true })
+  .sync()
   .then((res) => {
     console.log('Database connected');
+    return User.findByPk(1);
+  })
+  .then((user) => {
+    if (!user) {
+      return User.create({
+        name: 'Tichif',
+        email: 'tichif@gmail.com',
+      });
+    }
+    return Promise.resolve(user);
+  })
+  .then((user) => {
+    // console.log(user);
     app.listen(5000);
   })
   .catch((err) => console.log(err));
