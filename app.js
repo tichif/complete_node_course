@@ -8,6 +8,8 @@ const shopRoutes = require('./routes/shop');
 const pagesController = require('./controllers/pages');
 
 const sequelize = require('./utils/database');
+const Product = require('./models/product');
+const User = require('./models/user');
 
 const app = express();
 
@@ -28,9 +30,17 @@ app.use(shopRoutes);
 // 404 Page
 app.use(pagesController.getPageNotFound);
 
+// Create Relations between models
+Product.belongsTo(User, {
+  constraints: true,
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+User.hasMany(Product);
+
 // Sync all models
 sequelize
-  .sync()
+  .sync({ force: true })
   .then((res) => {
     console.log('Database connected');
     app.listen(5000);
