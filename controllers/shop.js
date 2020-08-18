@@ -15,11 +15,11 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  Product.findProductById(prodId)
-    .then(([product]) => {
+  Product.findByPk(prodId)
+    .then((product) => {
       res.render('shop/product-details', {
-        product: product[0],
-        docTitle: product[0].title,
+        product: product,
+        docTitle: product.title,
         path: `/products/${prodId}`,
       });
     })
