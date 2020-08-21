@@ -70,14 +70,11 @@ exports.getProducts = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-// exports.postDeleteProduct = (req, res, next) => {
-//   const productID = req.body.prodID;
-//   Product.findByPk(productID)
-//     .then((product) => {
-//       return product.destroy();
-//     })
-//     .then(() => {
-//       res.redirect('/admin/products');
-//     })
-//     .catch((err) => console.log(err));
-// };
+exports.postDeleteProduct = (req, res, next) => {
+  const productID = req.body.prodID;
+  Product.deleteById(productID)
+    .then(() => {
+      res.redirect('/admin/products');
+    })
+    .catch((err) => console.log(err));
+};
