@@ -22,9 +22,25 @@ class User {
   }
 
   addToCart(product) {
-    // const cartProduct = this.cart.items.findIndex(cp => cp._id === product._id);
+    const cartProductIndex = this.cart.items.findIndex(
+      (cp) => cp.productId.toString() === product._id.toString()
+    );
+    let newQty = 1;
+    const updateCartItems = [...this.cart.items];
+
+    if (cartProductIndex >= 0) {
+      // if the product exist overwrite the quantity
+      newQty = this.cart.items[cartProductIndex].quantity + 1;
+      updateCartItems[cartProductIndex].quantity = newQty;
+    } else {
+      // if the product doesn't exist, push a new object in the array
+      updateCartItems.push({
+        productId: new ObjectId(product._id),
+        quantity: newQty,
+      });
+    }
     const updatedCart = {
-      items: [{ productId: new ObjectId(product._id), quantity: 1 }],
+      items: updateCartItems,
     };
     const db = getDB();
     return db
