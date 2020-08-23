@@ -20,14 +20,14 @@ app.set('views', 'views');
 // Parse the body
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-  User.findUserById('5f4022ed4465ccd7d56f472c')
-    .then((user) => {
-      req.user = new User(user.username, user.email, user.cart, user._id);
-      next();
-    })
-    .catch((err) => console.log(err));
-});
+// app.use((req, res, next) => {
+//   User.findUserById('5f4022ed4465ccd7d56f472c')
+//     .then((user) => {
+//       req.user = new User(user.username, user.email, user.cart, user._id);
+//       next();
+//     })
+//     .catch((err) => console.log(err));
+// });
 
 // Serve file like css statically
 app.use(express.static(path.join(__dirname, 'public')));
