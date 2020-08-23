@@ -20,14 +20,14 @@ app.set('views', 'views');
 // Parse the body
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use((req, res, next) => {
-//   User.findUserById('5f4022ed4465ccd7d56f472c')
-//     .then((user) => {
-//       req.user = new User(user.username, user.email, user.cart, user._id);
-//       next();
-//     })
-//     .catch((err) => console.log(err));
-// });
+app.use((req, res, next) => {
+  User.findById('5f42f9889c36d2736420f83a')
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.log(err));
+});
 
 // Serve file like css statically
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,6 +43,20 @@ mongoose
     'mongodb+srv://tichif:tichif@shop.y8ep5.mongodb.net/shop?retryWrites=true&w=majority'
   )
   .then((result) => {
+    User.findOne().then((user) => {
+      if (!user) {
+        const user = new User({
+          name: 'Tichif',
+          email: 'charlby5@gmail.com',
+          cart: {
+            items: [],
+          },
+        });
+        return user.save();
+      }
+    });
+  })
+  .then(() => {
     app.listen(5000);
   })
   .catch((err) => console.log(err));
