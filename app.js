@@ -2,12 +2,11 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const pagesController = require('./controllers/pages');
-
-const { mongoConnect } = require('./utils/database');
 
 const User = require('./models/user');
 
@@ -39,6 +38,11 @@ app.use(shopRoutes);
 // 404 Page
 app.use(pagesController.getPageNotFound);
 
-mongoConnect(() => {
-  app.listen(5000);
-});
+mongoose
+  .connect(
+    'mongodb+srv://tichif:tichif@shop.y8ep5.mongodb.net/shop?retryWrites=true&w=majority'
+  )
+  .then((result) => {
+    app.listen(5000);
+  })
+  .catch((err) => console.log(err));

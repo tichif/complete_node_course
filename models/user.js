@@ -1,7 +1,5 @@
 const mongoDB = require('mongodb');
 
-const { getDB } = require('../utils/database');
-
 const ObjectId = mongoDB.ObjectId;
 
 class User {
