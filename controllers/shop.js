@@ -40,9 +40,6 @@ exports.getIndex = (req, res, next) => {
 exports.getCart = (req, res, next) => {
   req.user
     .getCart()
-    .then((cart) => {
-      return cart.getProducts();
-    })
     .then((products) => {
       res.render('shop/cart', {
         path: '/cart',
@@ -63,37 +60,6 @@ exports.postCart = (req, res, next) => {
       console.log(result);
     })
     .catch((err) => console.log(err));
-  // let fetchCard;
-  // let newQty = 1;
-  // req.user
-  //   .getCart()
-  //   .then((cart) => {
-  //     fetchCard = cart;
-  //     return cart.getProducts({ where: { id: prodId } });
-  //   })
-  //   .then((products) => {
-  //     let product;
-  //     if (products.length > 0) {
-  //       product = products[0];
-  //     }
-  //     if (product) {
-  //       // Increase quantity
-  //       const oldQuantity = product.cartItem.quantity;
-  //       newQty = oldQuantity + 1;
-  //       return product;
-  //     }
-  //     // add a new product to the cart
-  //     return Product.findByPk(prodId);
-  //   })
-  //   .then((product) => {
-  //     return fetchCard.addProduct(product, {
-  //       through: { quantity: newQty },
-  //     });
-  //   })
-  //   .then(() => {
-  //     return res.redirect('/cart');
-  //   })
-  //   .catch((err) => console.log(err));
 };
 
 exports.postDeleteCartProductById = (req, res, next) => {
