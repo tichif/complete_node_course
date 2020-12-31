@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const session = require('express-session');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -20,6 +21,13 @@ app.set('views', 'views');
 
 // Parse the body
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  session({
+    secret: 'scncihdyy32xnxka',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use((req, res, next) => {
   User.findById('5f42f9889c36d2736420f83a')
