@@ -26,10 +26,13 @@
             </p>
           </div>
           <div class="card__actions">
+            <a href="/products/<%= prod._id %>" class="btn">Details</a>
+            <% if(isAuthenticated) { %>
             <form action="/cart" method="POST">
               <input type="submit" value="Add to Cart" class="btn">
               <input type="hidden" name="productId" value="<%= prod.id %>">
             </form>
+            <% } %>
           </div>
         </article>
         <% } %>
