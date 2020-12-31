@@ -4,15 +4,23 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const pagesController = require('./controllers/pages');
 const authRoutes = require('./routes/auth');
+const MONGO_URI = 'mongodb+srv://tichif:tichif@shop.y8ep5.mongodb.net/shop';
 
 const User = require('./models/user');
 
 const app = express();
+
+// Initialize a store
+const store = new MongoDBStore({
+  uri: MONGO_URI,
+  collection: 'sessions',
+});
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -26,6 +34,7 @@ app.use(
     secret: 'scncihdyy32xnxka',
     resave: false,
     saveUninitialized: false,
+    store,
   })
 );
 
@@ -49,13 +58,10 @@ app.use(authRoutes);
 app.use(pagesController.getPageNotFound);
 
 mongoose
-  .connect(
-    'mongodb+srv://tichif:tichif@shop.y8ep5.mongodb.net/shop?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then((result) => {
     console.log('Database connected');
     User.findOne().then((user) => {
