@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const pagesController = require('./controllers/pages');
+const authRoutes = require('./routes/auth');
 
 const User = require('./models/user');
 
@@ -34,15 +35,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+app.use(authRoutes);
 
 // 404 Page
 app.use(pagesController.getPageNotFound);
 
 mongoose
   .connect(
-    'mongodb+srv://tichif:tichif@shop.y8ep5.mongodb.net/shop?retryWrites=true&w=majority'
+    'mongodb+srv://tichif:tichif@shop.y8ep5.mongodb.net/shop?retryWrites=true&w=majority',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
   )
   .then((result) => {
+    console.log('Database connected');
     User.findOne().then((user) => {
       if (!user) {
         const user = new User({
@@ -57,6 +64,8 @@ mongoose
     });
   })
   .then(() => {
-    app.listen(5000);
+    app.listen(5000, () => {
+      console.log('App is running');
+    });
   })
   .catch((err) => console.log(err));
