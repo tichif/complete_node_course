@@ -39,7 +39,7 @@ app.use(
 );
 
 app.use((req, res, next) => {
-  if (!req.session.user._id) {
+  if (!req.session.user) {
     return next();
   }
   User.findById(req.session.user._id)
@@ -67,22 +67,9 @@ mongoose
   })
   .then((result) => {
     console.log('Database connected');
-    User.findOne().then((user) => {
-      if (!user) {
-        const user = new User({
-          name: 'Tichif',
-          email: 'charlby5@gmail.com',
-          cart: {
-            items: [],
-          },
-        });
-        return user.save();
-      }
-    });
-  })
-  .then(() => {
-    app.listen(5000, () => {
-      console.log('App is running');
-    });
   })
   .catch((err) => console.log(err));
+
+app.listen(5000, () => {
+  console.log('App is running');
+});
