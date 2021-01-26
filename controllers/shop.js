@@ -36,6 +36,7 @@ exports.getIndex = (req, res, next) => {
         docTitle: 'Shop',
         path: '/',
         isAuthenticated: req.session.isLoggedIn,
+        csrfToken: req.csrfToken(),
       });
     })
     .catch((err) => console.log(err));
@@ -52,6 +53,7 @@ exports.getCart = (req, res, next) => {
         docTitle: 'Your Cart',
         products,
         isAuthenticated: req.session.isLoggedIn,
+        csrfToken: req.csrfToken(),
       });
     })
     .catch((err) => console.log(err));
@@ -95,6 +97,7 @@ exports.getOrdersPage = (req, res, next) => {
         docTitle: 'Orders',
         orders,
         isAuthenticated: req.session.isLoggedIn,
+        csrfToken: req.csrfToken(),
       });
     })
     .catch((err) => console.log(err));
