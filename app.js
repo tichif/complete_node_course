@@ -54,6 +54,12 @@ app.use((req, res, next) => {
     .catch((err) => console.log(err));
 });
 
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
+
 // Serve file like css statically
 app.use(express.static(path.join(__dirname, 'public')));
 

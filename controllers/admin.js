@@ -5,8 +5,6 @@ exports.getAddProduct = (req, res, next) => {
     docTitle: 'Add Product',
     path: '/admin/add-product',
     editing: false,
-    isAuthenticated: req.isLoggedIn,
-    csrfToken: req.csrfToken(),
   });
 };
 
@@ -39,8 +37,6 @@ exports.getEditProduct = (req, res, next) => {
         path: '/admin/edit-product',
         editing: true,
         product,
-        isAuthenticated: req.isLoggedIn,
-        csrfToken: req.csrfToken(),
       });
     })
     .catch((err) => console.log(err));
@@ -74,8 +70,6 @@ exports.getProducts = (req, res, next) => {
         products,
         docTitle: 'Admin Products',
         path: '/admin/products',
-        isAuthenticated: req.isLoggedIn,
-        csrfToken: req.csrfToken(),
       });
     })
     .catch((err) => console.log(err));

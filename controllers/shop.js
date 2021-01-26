@@ -35,8 +35,6 @@ exports.getIndex = (req, res, next) => {
         products,
         docTitle: 'Shop',
         path: '/',
-        isAuthenticated: req.session.isLoggedIn,
-        csrfToken: req.csrfToken(),
       });
     })
     .catch((err) => console.log(err));
@@ -52,8 +50,6 @@ exports.getCart = (req, res, next) => {
         path: '/cart',
         docTitle: 'Your Cart',
         products,
-        isAuthenticated: req.session.isLoggedIn,
-        csrfToken: req.csrfToken(),
       });
     })
     .catch((err) => console.log(err));
@@ -96,8 +92,6 @@ exports.getOrdersPage = (req, res, next) => {
         path: '/orders',
         docTitle: 'Orders',
         orders,
-        isAuthenticated: req.session.isLoggedIn,
-        csrfToken: req.csrfToken(),
       });
     })
     .catch((err) => console.log(err));
