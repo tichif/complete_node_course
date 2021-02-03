@@ -14,6 +14,9 @@ exports.getLoginPage = (req, res, next) => {
     path: '/login',
     docTitle: 'Login',
     errorMessage: message,
+    oldInput: {
+      email: '',
+    },
   });
 };
 
@@ -28,6 +31,9 @@ exports.getSignUpPage = (req, res, next) => {
     path: '/signup',
     docTitle: 'Signup',
     errorMessage: message,
+    oldInput: {
+      email: '',
+    },
   });
 };
 
@@ -40,6 +46,9 @@ exports.postSignUp = (req, res, next) => {
       path: '/signup',
       docTitle: 'Signup',
       errorMessage: errors.array()[0].msg,
+      oldInput: {
+        email,
+      },
     });
   }
 
@@ -59,6 +68,19 @@ exports.postSignUp = (req, res, next) => {
 
 exports.postLogin = (req, res, next) => {
   const { email, password } = req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render('auth/login', {
+      path: '/login',
+      docTitle: 'Login',
+      errorMessage: errors.array()[0].msg,
+      oldInput: {
+        email,
+      },
+    });
+  }
+
   User.findOne({ email })
     .then((user) => {
       if (!user) {
