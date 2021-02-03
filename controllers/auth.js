@@ -32,7 +32,7 @@ exports.getSignUpPage = (req, res, next) => {
 };
 
 exports.postSignUp = (req, res, next) => {
-  const { email, password, confirmPassword } = req.body;
+  const { email, password } = req.body;
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -43,24 +43,17 @@ exports.postSignUp = (req, res, next) => {
     });
   }
 
-  User.findOne({ email })
-    .then((existingUser) => {
-      if (existingUser) {
-        req.flash('error', 'Email already exists. Please add an another!!!');
-        return res.redirect('/signup');
-      }
-      return bcrypt
-        .hash(password, 12)
-        .then((hashedPassword) => {
-          const user = new User({
-            email,
-            password: hashedPassword,
-            cart: { items: [] },
-          });
-          return user.save();
-        })
-        .then((result) => res.redirect('/login'));
+  bcrypt
+    .hash(password, 12)
+    .then((hashedPassword) => {
+      const user = new User({
+        email,
+        password: hashedPassword,
+        cart: { items: [] },
+      });
+      return user.save();
     })
+    .then((result) => res.redirect('/login'))
     .catch((err) => console.log(err));
 };
 
