@@ -32,8 +32,7 @@ router.post(
       'Password should have 5 characters length and be alphanumeric'
     )
       .isLength({ min: 5 })
-      .isAlphanumeric()
-      .trim(),
+      .isAlphanumeric(),
     body('confirmPassword').custom((value, { req }) => {
       if (value !== req.body.password) {
         throw new Error('Passwords should match');
