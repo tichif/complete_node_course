@@ -34,6 +34,7 @@ exports.getSignUpPage = (req, res, next) => {
     oldInput: {
       email: '',
     },
+    validationResults: [],
   });
 };
 
@@ -49,6 +50,7 @@ exports.postSignUp = (req, res, next) => {
       oldInput: {
         email,
       },
+      validationResults: errors.array(),
     });
   }
 
