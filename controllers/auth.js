@@ -65,7 +65,11 @@ exports.postSignUp = (req, res, next) => {
       return user.save();
     })
     .then((result) => res.redirect('/login'))
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 exports.postLogin = (req, res, next) => {
@@ -108,7 +112,11 @@ exports.postLogin = (req, res, next) => {
           return res.redirect('/login');
         });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 exports.postLogout = (req, res, next) => {
