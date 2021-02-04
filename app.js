@@ -50,10 +50,15 @@ app.use((req, res, next) => {
   }
   User.findById(req.session.user._id)
     .then((user) => {
+      if (!user) {
+        return next();
+      }
       req.user = user;
       next();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      throw new Error(err);
+    });
 });
 
 // CSRF Protection middleware
@@ -70,8 +75,15 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 
+// 500 page
+app.get('/error', pagesController.getErrorPage);
 // 404 Page
 app.use(pagesController.getPageNotFound);
+
+// Error Middleware
+app.use((err, req, res, next) => {
+  res.redirect('/error');
+});
 
 mongoose
   .connect(MONGO_URI, {

@@ -5,3 +5,11 @@ exports.getPageNotFound = (req, res, next) => {
     isAuthenticated: req.isLoggedIn,
   });
 };
+
+exports.getErrorPage = (req, res, next) => {
+  res.status(404).render('error', {
+    docTitle: 'An Error Occurred',
+    path: '',
+    isAuthenticated: req.isLoggedIn,
+  });
+};
