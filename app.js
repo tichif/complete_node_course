@@ -7,6 +7,7 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csurf = require('csurf');
 const flash = require('connect-flash');
+const multer = require('multer');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -33,6 +34,11 @@ app.set('views', 'views');
 
 // Parse the body
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  multer({
+    dest: 'images',
+  }).single('image')
+);
 app.use(
   session({
     secret: 'scncihdyy32xnxka',
