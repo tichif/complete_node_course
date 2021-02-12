@@ -32,11 +32,20 @@ app.set('views', 'views');
 
 //######## Apply middleware #############
 
+const fileStorage = multer.diskStorage({
+  destination: (req, res, cb) => {
+    cb(null, 'images');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname + '-' + new Date().toISOString());
+  },
+});
+
 // Parse the body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   multer({
-    dest: 'images',
+    storage: fileStorage,
   }).single('image')
 );
 app.use(
